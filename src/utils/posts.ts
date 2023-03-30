@@ -222,8 +222,20 @@ export async function makePost(content: string) {
       throw new Error("Failed to make post");
     }
 
-    const data = await response.json();
-    return data.result as Post;
+    const post = (await response.json()).result;
+    if (!post) throw new Error("Failed to make post");
+    const sentiment = new Sentiment();
+    const created = await prisma.mention.create({
+      data: {
+        fizzId: post.postID,
+        content: post.text,
+        person: "Faith",
+        sentiment: sentiment.analyze(post.text).score,
+        likes: 0,
+        postedByMe: true,
+      },
+    });
+    return created;
   } catch (error) {
     throw new Error("Failed to get posts");
   }
