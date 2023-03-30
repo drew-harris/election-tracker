@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Person {
+  Alex
+  Hope
+  Tulsi
+  Clayton
+  Mir
+  Faith
+  Joey
+  Krish
+  Dylan
+  Michael
+}
+
+model Mention {
+  fizzId String @id
+  person Person
+
+  content   String
+  sentiment Decimal
+  likes     Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  postedByMe Boolean @default(false)
+}
+
+model credentials {
+  id           Int      @id @default(autoincrement())
+  expiresAt    DateTime
+  refreshToken String
+  accessToken  String
+}
