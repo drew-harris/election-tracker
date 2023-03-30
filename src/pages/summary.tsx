@@ -2,7 +2,8 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
-import { RouterOutputs, api } from "~/utils/api";
+import { api } from "~/utils/api";
+import type { RouterOutputs } from "~/utils/api";
 
 const Summary: NextPage = () => {
   const { data, isLoading } = api.mentions.details.useQuery();

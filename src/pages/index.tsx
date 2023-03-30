@@ -29,6 +29,7 @@ const Home: NextPage = () => {
 interface MentionCardProps {
   mention: RouterOutputs["mentions"]["recentMentions"][0];
 }
+
 const MentionCard = ({ mention }: MentionCardProps) => {
   return (
     <div className="border-1 mb-3 border border-gray-800 p-3">
