@@ -11,9 +11,11 @@ export default async function handler(
   console.log("Making post");
   try {
     let item = messages[Math.floor(Math.random() * messages.length)];
+    let tried = 0;
     let alreadySent = true;
 
     while (alreadySent) {
+      tried++;
       const match = await prisma.mention.findFirst({
         where: {
           content: {
@@ -25,6 +27,9 @@ export default async function handler(
         item = messages[Math.floor(Math.random() * messages.length)];
       } else {
         alreadySent = false;
+      }
+      if (tried > messages.length) {
+        return res.status(500).json({ error: "No Item" });
       }
     }
     if (!item) {
