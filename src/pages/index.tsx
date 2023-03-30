@@ -34,6 +34,7 @@ const MentionCard = ({ mention }: MentionCardProps) => {
     <div className="border-1 mb-3 border border-gray-800 p-3">
       <div>{mention.content}</div>
       <div>{mention.likes} Likes</div>
+      <div className="text-xs">{mention.createdAt.toLocaleString()}</div>
     </div>
   );
 };
