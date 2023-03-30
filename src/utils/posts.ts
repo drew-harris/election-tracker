@@ -51,43 +51,43 @@ const matchers: {
 }[] = [
   {
     name: "Tulsi",
-    matcher: /\stulsi\s/i,
+    matcher: /\s*tulsi\s*/i,
   },
   {
     name: "Mir",
-    matcher: /\smir\s/i,
+    matcher: /\s*mir\s*/i,
   },
   {
     name: "Alex",
-    matcher: /\salex\s/i,
+    matcher: /\s*alex\s*/i,
   },
   {
     name: "Hope",
-    matcher: /\shope\s/i,
+    matcher: /\s*hope\s*/i,
   },
   {
     name: "Joey",
-    matcher: /\sjoey\s/i,
+    matcher: /\s*joey\s*/i,
   },
   {
     name: "Krish",
-    matcher: /\skrish\s/i,
+    matcher: /\s*krish\s*/i,
   },
   {
     name: "Dylan",
-    matcher: /\sdylan\s/i,
+    matcher: /\s*dylan\s*/i,
   },
   {
     name: "Michael",
-    matcher: /\smichael\s/i,
+    matcher: /\s*michael\s*/i,
   },
   {
     name: "Faith",
-    matcher: /\sfaith\s/i,
+    matcher: /\s*faith\s*/i,
   },
   {
     name: "Clayton",
-    matcher: /\sclayton\s/i,
+    matcher: /\s*clayton\s*/i,
   },
 ];
 
