@@ -42,7 +42,7 @@ const DetailsCard = ({ details }: DetailsCardProps) => {
       <div className="">{details.likes} total likes</div>
       {details?.sentiment && (
         <div className="">
-          Average sentiment: {details?.sentiment.toString()}
+          Average sentiment: {details?.sentiment.toString().substring(0, 5)}
         </div>
       )}
     </div>

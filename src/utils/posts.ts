@@ -2,6 +2,7 @@ import type { Person, Prisma } from "@prisma/client";
 import Sentiment from "sentiment";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
+import { getAccessToken } from "./login";
 
 export async function getPosts(token: string) {
   try {
@@ -178,4 +179,48 @@ export async function savePosts(posts: PostWithData[]) {
 
     return mapped;
   } catch (error) {}
+}
+
+export async function makePost(content: string) {
+  const token = await getAccessToken();
+  try {
+    const body = JSON.stringify({
+      data: {
+        clientVersion: "1.12.12",
+        pseudonym: "",
+        linkURL: null,
+        pollOptions: null,
+        postType: "text",
+        text: content,
+        usingLeaderBoardName: false,
+        topic: "general",
+        pinTopOfFizzin: true,
+        flair: "",
+      },
+    });
+
+    console.log("BODY: ", body);
+    const response = await fetch(
+      "https://us-central1-buzz-3eeb8.cloudfunctions.net/createPost",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Firebase-AppCheck": env.APP_CHECK,
+          "Firebase-Instance-ID-Token": env.INSTANCE_ID,
+          Authorization: "Bearer " + token,
+          "User-Agent":
+            "FirebaseAuth.iOS/10.2.0 com.ashtoncofer.Buzz/1.12.12 iPhone/16.1 hw/iPhone13_3",
+        },
+        body: body,
+      }
+    );
+
+    if (!response.ok) {
+      console.error(await response.text());
+      throw new Error("Failed to make post");
+    }
+  } catch (error) {
+    throw new Error("Failed to get posts");
+  }
 }
