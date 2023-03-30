@@ -6,6 +6,9 @@ export const mentionRouter = createTRPCRouter({
   recentMentions: publicProcedure.query(async ({ ctx }) => {
     try {
       const posts = await ctx.prisma.mention.findMany({
+        where: {
+          postedByMe: false,
+        },
         orderBy: {
           createdAt: "desc",
         },
@@ -22,6 +25,9 @@ export const mentionRouter = createTRPCRouter({
   details: publicProcedure.query(async ({ ctx }) => {
     try {
       const posts = await ctx.prisma.mention.groupBy({
+        where: {
+          postedByMe: false,
+        },
         by: ["person"],
         _count: {
           _all: true,
