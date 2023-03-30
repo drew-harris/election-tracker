@@ -4,13 +4,14 @@ import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
 import { getAccessToken } from "./login";
 
-export async function getPosts(token: string) {
+export async function getPosts(token: string, startAfter?: string | undefined) {
   try {
     const body = JSON.stringify({
       data: {
         clientVersion: "1.12.12",
         excludedTopics: [],
         endpointFeedType: "getPostsByDate",
+        startAfter: startAfter,
       },
     });
 

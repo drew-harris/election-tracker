@@ -4,7 +4,7 @@ import { filterPosts, getPosts, savePosts } from "~/utils/posts";
 
 // Hook to update the latest session
 export default async function handler(
-  _req: NextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse
 ) {
   console.log("UPDATE!!!");
@@ -14,11 +14,12 @@ export default async function handler(
     // Get the newest posts
     const creds = await getAccessToken();
     console.log(creds);
-    const posts = await getPosts(creds);
+    const posts = await getPosts(creds, req.query.start as string | undefined);
+    const lastPostId = posts[posts.length - 1]?.postID;
     const filtered = filterPosts(posts);
     const created = await savePosts(filtered);
 
-    return res.status(200).json(created);
+    return res.status(200).json({ created, lastPostId });
   } catch (error) {
     console.log(error);
     if (error instanceof Error) {
