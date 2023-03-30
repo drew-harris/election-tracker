@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getNewCreds } from "~/utils/login";
+import { getAccessToken } from "~/utils/login";
 import { filterPosts, getPosts, savePosts } from "~/utils/posts";
 
 // Hook to update the latest session
@@ -12,9 +12,9 @@ export default async function handler(
   try {
     // Get the newest credentials
     // Get the newest posts
-    const creds = await getNewCreds();
+    const creds = await getAccessToken();
     console.log(creds);
-    const posts = await getPosts(creds.accessToken);
+    const posts = await getPosts(creds);
     const filtered = filterPosts(posts);
     const created = await savePosts(filtered);
 
