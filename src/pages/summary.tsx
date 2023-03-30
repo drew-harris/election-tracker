@@ -1,9 +1,8 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
 
-import { api } from "~/utils/api";
 import type { RouterOutputs } from "~/utils/api";
+import { api } from "~/utils/api";
 
 const Summary: NextPage = () => {
   const { data, isLoading } = api.mentions.details.useQuery();
@@ -15,9 +14,6 @@ const Summary: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="m-4">
-        <Link href="/">
-          <div className="mb-4 font-bold underline">Back</div>
-        </Link>
         {isLoading && <div>Loading...</div>}
         <div>Sentiment: Higher number is more positively referenced</div>
         <div>

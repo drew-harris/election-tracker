@@ -220,6 +220,9 @@ export async function makePost(content: string) {
       console.error(await response.text());
       throw new Error("Failed to make post");
     }
+
+    const data = await response.json();
+    return data.result as Post;
   } catch (error) {
     throw new Error("Failed to get posts");
   }
