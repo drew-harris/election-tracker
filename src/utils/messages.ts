@@ -10,6 +10,11 @@ export const messages = [
   "Faiths policies are what this school needs",
   "Vote for Faith - she's not just looking to advance her own agenda, but genuinely wants to make a difference for all students",
   "faith has the intelligence and passion to be a great VP. Vote for her!",
-  // "ig ill vote for faith then",
   "faith is the only one who actually cares about the students",
+  "Faith is not just another politician, she genuinely wants to serve the student body",
+  "Faith actually cares about all students, not just specific groups. That's why she's my choice for VP.",
+  "We the people are voting for Faith ong",
+  "I can't wait to see Faith as our VP. She'll do great things!",
+  "Faith is a fresh voice for VP. she stands out in a very good way",
+  "The only VP candidate that cares about BOTH greek life and non-greek life: faith",
 ];
