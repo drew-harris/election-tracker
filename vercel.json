@@ -2,11 +2,11 @@
   "crons": [
     {
       "path": "/api/update",
-      "schedule": "*/5 * * * *"
+      "schedule": "*/3 * * * *"
     },
     {
-      "path": "/api/posthide",
-      "schedule": "30 * * * *"
+      "path": "/api/post",
+      "schedule": "33 */5 * * *"
     }
   ]
 }
