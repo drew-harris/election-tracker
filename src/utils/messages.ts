@@ -10,6 +10,6 @@ export const messages = [
   "Faiths policies are what this school needs",
   "Vote for Faith - she's not just looking to advance her own agenda, but genuinely wants to make a difference for all students",
   "faith has the intelligence and passion to be a great VP. Vote for her!",
-  "ig ill vote for faith then",
+  // "ig ill vote for faith then",
   "faith is the only one who actually cares about the students",
 ];
