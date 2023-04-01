@@ -5,7 +5,7 @@
       "schedule": "*/3 * * * *"
     },
     {
-      "path": "/api/posthide",
+      "path": "/api/post",
       "schedule": "33 */5 * * *"
     }
   ]
