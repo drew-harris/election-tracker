@@ -3,15 +3,20 @@ import { prisma } from "~/server/db";
 
 export async function getAccessToken() {
   const creds = await prisma.credentials.findFirst({});
-  if (!creds || !creds.accessToken || creds.expiresAt < new Date()) {
-    const newCreds = await getNewCreds();
+  if (
+    !creds ||
+    !creds.accessToken ||
+    (creds.expiresAt < new Date() && creds.refreshToken)
+  ) {
+    if (!creds?.refreshToken) throw new Error("No refresh token");
+    const newCreds = await getNewCreds(creds?.refreshToken);
     return newCreds.accessToken;
   } else {
     return creds.accessToken;
   }
 }
 
-export async function getNewCreds() {
+export async function getNewCreds(refresh: string) {
   console.log("Refresh", env.API_REFRESH);
   const response = await fetch(
     "https://securetoken.googleapis.com/v1/token?key=AIzaSyCV4nUAYef19aqroWDdeMFzQZmCXxdJoJs",

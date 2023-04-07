@@ -43,3 +43,14 @@ model credentials {
   refreshToken String
   accessToken  String
 }
+
+model TemplateMessage {
+  id          Int      @id @default(autoincrement())
+  content     String
+  submittedAt DateTime @default(now())
+}
+
+model Config {
+  id Int @id @default(autoincrement())
+  scheduleEnabled Boolean @default(false)
+}

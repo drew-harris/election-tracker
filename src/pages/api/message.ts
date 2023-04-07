@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import * as Sentry from "@sentry/nextjs";
 import { getAccessToken } from "~/utils/login";
 import { filterPosts, getPosts, savePosts } from "~/utils/posts";
 
@@ -21,7 +22,8 @@ export default async function handler(
 
     return res.status(200).json({ created, lastPostId });
   } catch (error) {
-    console.log(error);
+    Sentry.captureException(error);
+    console.error(error);
     if (error instanceof Error) {
       return res
         .status(500)

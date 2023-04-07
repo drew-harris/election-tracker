@@ -15,8 +15,8 @@ const links: { href: string; label: string }[] = [
     label: "Summary",
   },
   {
-    href: "/post",
-    label: "Post",
+    href: "/schedule",
+    label: "Schedule",
   },
 ];
 

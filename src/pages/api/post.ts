@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import * as Sentry from "@sentry/nextjs";
 import { prisma } from "~/server/db";
-import { messages } from "~/utils/messages";
 import { makePost } from "~/utils/posts";
 
 // Hook to update the latest session
@@ -10,37 +10,33 @@ export default async function handler(
 ) {
   console.log("Making post");
   try {
-    let item = messages[Math.floor(Math.random() * messages.length)];
-    let tried = 0;
-    let alreadySent = true;
-
-    while (alreadySent) {
-      tried++;
-      const match = await prisma.mention.findFirst({
-        where: {
-          content: {
-            contains: item,
-          },
-        },
-      });
-      if (match) {
-        item = messages[Math.floor(Math.random() * messages.length)];
-      } else {
-        alreadySent = false;
-      }
-      if (tried > messages.length) {
-        return res.status(500).json({ error: "No Item" });
-      }
+    const config = await prisma.config.findFirst();
+    if (!config || !config?.scheduleEnabled) {
+      return res.status(200).json({ msg: "Posting disabled" });
     }
-    if (!item) {
-      return res.status(500).json({ error: "No Item" });
+    const firstPotential = await prisma.templateMessage.findFirst({
+      orderBy: {
+        submittedAt: "desc",
+      },
+    });
+    if (!firstPotential) {
+      Sentry.captureMessage("No potential messages");
+      return res.status(200).json({ msg: "No More Messages" });
     }
 
-    const mention = await makePost(item);
+    const mention = await makePost(firstPotential?.content);
+
+    // Delete the message
+    await prisma.templateMessage.delete({
+      where: {
+        id: firstPotential.id,
+      },
+    });
 
     return res.status(200).json({ mention });
   } catch (error) {
-    console.log(error);
+    Sentry.captureException(error);
+    console.error(error);
     if (error instanceof Error) {
       return res
         .status(500)

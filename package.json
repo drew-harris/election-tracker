@@ -10,15 +10,21 @@
     "start": "next start"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.13",
     "@prisma/client": "^4.11.0",
+    "@sentry/nextjs": "^7.47.0",
     "@tanstack/react-query": "^4.28.0",
     "@trpc/client": "^10.18.0",
     "@trpc/next": "^10.18.0",
     "@trpc/react-query": "^10.18.0",
     "@trpc/server": "^10.18.0",
+    "@upstash/qstash": "^0.3.6",
+    "antd": "^5.4.0",
+    "cronstrue": "^2.26.0",
     "next": "^13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-js-cron": "^3.2.0",
     "sentiment": "^5.0.2",
     "superjson": "^1.12.2",
     "zod": "^3.21.4"

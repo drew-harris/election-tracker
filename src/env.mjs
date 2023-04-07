@@ -11,6 +11,7 @@ const server = z.object({
   GMPID: z.string(),
   INSTANCE_ID: z.string(),
   APP_CHECK: z.string(),
+  QSTASH_TOKEN: z.string(),
 });
 
 /**
@@ -34,6 +35,7 @@ const processEnv = {
   GMPID: process.env.GMPID,
   INSTANCE_ID: process.env.INSTANCE_ID,
   APP_CHECK: process.env.APP_CHECK,
+  QSTASH_TOKEN: process.env.QSTASH_TOKEN,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 

@@ -3,10 +3,6 @@
     {
       "path": "/api/update",
       "schedule": "*/3 * * * *"
-    },
-    {
-      "path": "/api/posttest",
-      "schedule": "33 */5 * * *"
     }
   ]
 }

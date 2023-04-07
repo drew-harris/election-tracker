@@ -33,6 +33,7 @@ type CreateContextOptions = Record<string, never>;
 const createInnerTRPCContext = (_opts: CreateContextOptions) => {
   return {
     prisma,
+    qstash: client,
   };
 };
 
@@ -56,6 +57,7 @@ export const createTRPCContext = (_opts: CreateNextContextOptions) => {
 import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
+import client from "../qstash";
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
