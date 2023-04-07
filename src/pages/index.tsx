@@ -3,7 +3,6 @@ import Head from "next/head";
 import type { RouterOutputs } from "../utils/api";
 
 import { api } from "~/utils/api";
-import Link from "next/link";
 
 const Home: NextPage = () => {
   const mentions = api.mentions.recentMentions.useQuery();

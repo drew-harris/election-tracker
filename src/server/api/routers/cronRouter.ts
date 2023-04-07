@@ -1,3 +1,4 @@
+import { captureException } from "@sentry/nextjs";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
@@ -16,6 +17,7 @@ export const cronRouter = createTRPCRouter({
       }
       return res[0]?.cron || null;
     } catch (error) {
+      captureException(error);
       throw new TRPCError({
         message: "Could not get crons",
         code: "INTERNAL_SERVER_ERROR",
@@ -47,6 +49,7 @@ export const cronRouter = createTRPCRouter({
 
         return scheduleId;
       } catch (error) {
+        captureException(error);
         console.error(error);
         throw new TRPCError({
           message: "Could not set cron",
@@ -69,6 +72,7 @@ export const cronRouter = createTRPCRouter({
           },
         });
       } catch (error) {
+        captureException(error);
         console.error(error);
         throw new TRPCError({
           message: "Could not update",
@@ -82,6 +86,7 @@ export const cronRouter = createTRPCRouter({
       const config = await ctx.prisma.config.findFirst();
       return config?.scheduleEnabled || false;
     } catch (error) {
+      captureException(error);
       throw new TRPCError({
         message: "Could not get config",
         code: "INTERNAL_SERVER_ERROR",

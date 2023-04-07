@@ -1,3 +1,4 @@
+import { captureException } from "@sentry/nextjs";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getAccessToken } from "~/utils/login";
 import { filterPosts, getPosts, savePosts } from "~/utils/posts";
@@ -7,8 +8,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log("UPDATE!!!");
-  // get the first user
+  console.log("Updating posts from fizz");
   try {
     // Get the newest credentials
     // Get the newest posts
@@ -21,6 +21,7 @@ export default async function handler(
 
     return res.status(200).json({ created, lastPostId });
   } catch (error) {
+    captureException(error);
     console.log(error);
     if (error instanceof Error) {
       return res

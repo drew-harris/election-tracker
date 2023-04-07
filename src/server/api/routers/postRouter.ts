@@ -1,5 +1,5 @@
+import { captureException } from "@sentry/nextjs";
 import { TRPCError } from "@trpc/server";
-import Sentiment from "sentiment";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
@@ -13,11 +13,11 @@ export const postRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const sentiment = new Sentiment();
       try {
         const post = await makePost(input.content);
         return post;
       } catch (error) {
+        captureException(error);
         throw new TRPCError({
           message: "Could not make post",
           code: "INTERNAL_SERVER_ERROR",
@@ -37,6 +37,7 @@ export const postRouter = createTRPCRouter({
       });
       return posts;
     } catch (error) {
+      captureException(error);
       throw new TRPCError({
         message: "Could not get recent mentions",
         code: "INTERNAL_SERVER_ERROR",
@@ -53,6 +54,7 @@ export const postRouter = createTRPCRouter({
       });
       return pool;
     } catch (error) {
+      captureException(error);
       throw new TRPCError({
         message: "Could not get post pool",
         code: "INTERNAL_SERVER_ERROR",
@@ -75,6 +77,7 @@ export const postRouter = createTRPCRouter({
         });
         return pool;
       } catch (error) {
+        captureException(error);
         throw new TRPCError({
           message: "Could not add to post pool",
           code: "INTERNAL_SERVER_ERROR",
@@ -97,6 +100,7 @@ export const postRouter = createTRPCRouter({
         });
         return pool;
       } catch (error) {
+        captureException(error);
         throw new TRPCError({
           message: "Could not remove from post pool",
           code: "INTERNAL_SERVER_ERROR",

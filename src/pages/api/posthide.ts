@@ -1,3 +1,4 @@
+import { captureException } from "@sentry/nextjs";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 // Hook to update the latest session
@@ -9,6 +10,7 @@ export default async function handler(
   try {
     return res.status(200).json({ msg: "skipped" });
   } catch (error) {
+    captureException(error);
     console.log(error);
     if (error instanceof Error) {
       return res
